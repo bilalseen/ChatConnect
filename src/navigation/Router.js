@@ -13,6 +13,7 @@ import { auth } from "../services/firebaseConfig";
 
 import colors from "../styles/colors";
 import Entypo from "@expo/vector-icons/Entypo";
+import { showMessage } from "react-native-flash-message";
 
 const Stack = createNativeStackNavigator();
 
