@@ -1,12 +1,46 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import React, { useState } from "react";
 import colors from "../styles/colors";
 import Input from "../components/auth/Input";
 import Button from "../components/Button";
+import { auth } from "../services/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { showMessage } from "react-native-flash-message";
+import { StatusBar } from "expo-status-bar";
 
 export default function SignIn({ navigation }) {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [user, setUser] = useState({});
+
+  const signIn = async () => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      showMessage({
+        message: "Başarılı",
+        description: "Giriş Başarılı",
+        type: "success",
+      });
+      setUser(userCredential.user);
+      setEmail(null);
+      setPassword(null);
+      console.log(user);
+    } catch (error) {
+      showMessage({
+        message: "Hata",
+        description: "Giriş Yapılamadı",
+        type: "danger",
+      });
+      console.log(error);
+    }
+  };
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>chatConnect</Text>
       </View>
@@ -15,11 +49,18 @@ export default function SignIn({ navigation }) {
           <Input
             placeholder="e-postanızı giriniz.."
             keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
           />
-          <Input placeholder="şifrenizi giriniz.." secureTextEntry={true} />
+          <Input
+            placeholder="şifrenizi giriniz.."
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
         </View>
         <View style={styles.buttonContainer}>
-          <Button text={"Giriş Yap"} />
+          <Button text={"Giriş Yap"} onPress={signIn} />
           <Button
             theme="secondary"
             text={"Kayıt Ol"}
@@ -27,7 +68,7 @@ export default function SignIn({ navigation }) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
