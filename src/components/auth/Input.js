@@ -9,28 +9,43 @@ export default function Input({
   onChangeText,
   keyboardType,
   onBlur,
+  error,
 }) {
   return (
-    <TextInput
-      onChangeText={onChangeText}
-      keyboardType={keyboardType}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      onBlur={onBlur}
-      value={value}
-      placeholderTextColor={colors.tertiary}
-      style={styles.container}
-      autoCapitalize="none"
-    />
+    <View style={styles.container}>
+      <TextInput
+        onChangeText={onChangeText}
+        keyboardType={keyboardType}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        onBlur={onBlur}
+        value={value}
+        placeholderTextColor={colors.tertiary}
+        style={[styles.input, error && styles.inputError]}
+        autoCapitalize="none"
+      />
+      {error && <Text style={styles.errorText}>{error}</Text>}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    marginBottom: 10,
+  },
+  input: {
     borderColor: colors.tertiary,
     borderBottomWidth: 1,
-    placeholderTextColor: colors.tertiary,
     padding: 10,
+  },
+  inputError: {
+    borderColor: colors.danger,
+  },
+  errorText: {
+    color: colors.danger,
+    fontSize: 14,
+    fontWeight: "600",
+    marginTop: 5,
   },
 });
