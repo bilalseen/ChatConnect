@@ -8,13 +8,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { showMessage } from "react-native-flash-message";
 import { StatusBar } from "expo-status-bar";
 import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
+import { Formik } from "formik";
 
 export default function SignIn({ navigation }) {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
   const [user, setUser] = useState({});
 
-  const signIn = async () => {
+  const signIn = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -27,8 +26,7 @@ export default function SignIn({ navigation }) {
         type: "success",
       });
       setUser(userCredential.user);
-      setEmail(null);
-      setPassword(null);
+
       console.log(user);
     } catch (error) {
       showMessage({
@@ -45,30 +43,39 @@ export default function SignIn({ navigation }) {
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>chatConnect</Text>
       </View>
-      <View style={styles.formContainer}>
-        <View style={styles.inputContainer}>
-          <Input
-            placeholder="e-postanızı giriniz.."
-            keyboardType="email-address"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <Input
-            placeholder="şifrenizi giriniz.."
-            secureTextEntry={true}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button text={"Giriş Yap"} onPress={signIn} />
-          <Button
-            theme="secondary"
-            text={"Kayıt Ol"}
-            onPress={() => navigation.navigate("SignUpScreen")}
-          />
-        </View>
-      </View>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => signIn(values.email, values.password)}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <View style={styles.formContainer}>
+            <View style={styles.inputContainer}>
+              <Input
+                placeholder="e-postanızı giriniz.."
+                keyboardType="email-address"
+                value={values.email}
+                onChangeText={handleChange("email")}
+                handleBlur={handleBlur("email")}
+              />
+              <Input
+                placeholder="şifrenizi giriniz.."
+                secureTextEntry={true}
+                value={values.password}
+                onChangeText={handleChange("password")}
+                handleBlur={handleBlur("password")}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button text={"Giriş Yap"} onPress={handleSubmit} />
+              <Button
+                theme="secondary"
+                text={"Kayıt Ol"}
+                onPress={() => navigation.navigate("SignUpScreen")}
+              />
+            </View>
+          </View>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 }
