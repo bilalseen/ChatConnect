@@ -7,6 +7,7 @@ import { auth } from "../services/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { showMessage } from "react-native-flash-message";
 import { StatusBar } from "expo-status-bar";
+import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState(null);
@@ -32,7 +33,7 @@ export default function SignIn({ navigation }) {
     } catch (error) {
       showMessage({
         message: "Hata",
-        description: "Giriş Yapılamadı",
+        description: getFirebaseErrorMessage(error),
         type: "danger",
       });
       console.log(error);

@@ -6,6 +6,8 @@ import Button from "../components/Button";
 import { app, auth } from "../services/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { StatusBar } from "expo-status-bar";
+import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
+import { showMessage } from "react-native-flash-message";
 
 export default function SignUp({ navigation }) {
   const [email, setEmail] = useState(null);
@@ -15,7 +17,11 @@ export default function SignUp({ navigation }) {
 
   const signUp = async () => {
     if (password != passwordRepeat)
-      return console.log("Passwords do not match");
+      return showMessage({
+        message: "Hata",
+        description: "Şifreler uyuşmuyor",
+        type: "warning",
+      });
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -23,12 +29,22 @@ export default function SignUp({ navigation }) {
         password
       );
       setUser(userCredential.user);
+      showMessage({
+        message: "Başarılı",
+        description: "Kayıt Başarılı",
+        type: "success",
+      });
       setEmail(null);
       setPassword(null);
       setPasswordRepeat(null);
       console.log(user);
     } catch (error) {
-      console.log(error);
+      console.log(error.code);
+      showMessage({
+        message: "Başarısız",
+        description: getFirebaseErrorMessage(error),
+        type: "danger",
+      });
     }
   };
 
