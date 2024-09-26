@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import React from "react";
+import { StatusBar } from "expo-status-bar";
 
 export default function Home() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar />
       <Text>Home</Text>
-    </View>
+    </SafeAreaView>
   );
 }
 
