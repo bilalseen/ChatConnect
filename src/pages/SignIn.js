@@ -26,8 +26,7 @@ export default function SignIn({ navigation }) {
         type: "success",
       });
       setUser(userCredential.user);
-
-      console.log(user);
+      console.log(userCredential.user); // Hatanın düzeltilmesi
     } catch (error) {
       showMessage({
         message: "Hata",
@@ -37,6 +36,7 @@ export default function SignIn({ navigation }) {
       console.log(error);
     }
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
@@ -55,14 +55,14 @@ export default function SignIn({ navigation }) {
                 keyboardType="email-address"
                 value={values.email}
                 onChangeText={handleChange("email")}
-                handleBlur={handleBlur("email")}
+                onBlur={handleBlur("email")} // Düzeltildi
               />
               <Input
                 placeholder="şifrenizi giriniz.."
                 secureTextEntry={true}
                 value={values.password}
                 onChangeText={handleChange("password")}
-                handleBlur={handleBlur("password")}
+                onBlur={handleBlur("password")} // Düzeltildi
               />
             </View>
             <View style={styles.buttonContainer}>
