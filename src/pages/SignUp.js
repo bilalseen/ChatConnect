@@ -9,16 +9,10 @@ import { StatusBar } from "expo-status-bar";
 import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 import { showMessage } from "react-native-flash-message";
 import { Formik } from "formik";
+import * as yup from "yup";
 
 export default function SignUp({ navigation }) {
-  const signUp = async (email, password, passwordRepeat) => {
-    if (password !== passwordRepeat) {
-      return showMessage({
-        message: "Hata",
-        description: "Şifreler uyuşmuyor",
-        type: "warning",
-      });
-    }
+  const signUp = async (email, password) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -30,7 +24,7 @@ export default function SignUp({ navigation }) {
         description: "Kayıt Başarılı",
         type: "success",
       });
-      console.log(userCredential.user); // userCredential.user kullan
+      console.log(userCredential.user);
     } catch (error) {
       console.log(error.code);
       showMessage({
@@ -40,6 +34,21 @@ export default function SignUp({ navigation }) {
       });
     }
   };
+
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Geçerli bir e-posta adresi giriniz.")
+      .required("E-posta adresi gerekli."),
+    password: yup
+      .string()
+      .min(6, "Şifre en az 6 karakter olmalıdır.")
+      .required("Şifre gerekli."),
+    passwordRepeat: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Şifreler uyuşmuyor")
+      .required("Şifre tekrarı gerekli."),
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,8 +61,16 @@ export default function SignUp({ navigation }) {
         onSubmit={(values) =>
           signUp(values.email, values.password, values.passwordRepeat)
         }
+        validationSchema={validationSchema}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
           <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
               <Input
@@ -62,6 +79,7 @@ export default function SignUp({ navigation }) {
                 onChangeText={handleChange("email")}
                 value={values.email}
                 onBlur={handleBlur("email")}
+                error={touched.email && errors.email}
               />
               <Input
                 placeholder="şifrenizi giriniz.."
@@ -69,6 +87,7 @@ export default function SignUp({ navigation }) {
                 onChangeText={handleChange("password")}
                 value={values.password}
                 onBlur={handleBlur("password")}
+                error={touched.password && errors.password}
               />
               <Input
                 placeholder="şifrenizi tekrar giriniz.."
@@ -76,6 +95,7 @@ export default function SignUp({ navigation }) {
                 onChangeText={handleChange("passwordRepeat")}
                 value={values.passwordRepeat}
                 onBlur={handleBlur("passwordRepeat")}
+                error={touched.passwordRepeat && errors.passwordRepeat}
               />
             </View>
             <View style={styles.buttonContainer}>
