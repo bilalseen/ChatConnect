@@ -9,6 +9,7 @@ import { showMessage } from "react-native-flash-message";
 import { StatusBar } from "expo-status-bar";
 import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 import { Formik } from "formik";
+import * as yup from "yup";
 
 export default function SignIn({ navigation }) {
   const [user, setUser] = useState({});
@@ -37,6 +38,17 @@ export default function SignIn({ navigation }) {
     }
   };
 
+  const validationSchema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Geçersiz e-posta!!!")
+      .required("E-posta zorunlu!!!"),
+    password: yup
+      .string()
+      .required("Şifre zorunlu!!!")
+      .min(6, "Şifre en az 6 karakter olmalıdır!!!"),
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
@@ -46,23 +58,33 @@ export default function SignIn({ navigation }) {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => signIn(values.email, values.password)}
+        validationSchema={validationSchema}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
           <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
               <Input
                 placeholder="e-postanızı giriniz.."
                 keyboardType="email-address"
-                value={values.email}
                 onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")} // Düzeltildi
+                onBlur={handleBlur("email")}
+                value={values.email}
+                error={touched.email && errors.email}
               />
               <Input
                 placeholder="şifrenizi giriniz.."
                 secureTextEntry={true}
-                value={values.password}
                 onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")} // Düzeltildi
+                onBlur={handleBlur("password")}
+                value={values.password}
+                error={touched.password && errors.password}
               />
             </View>
             <View style={styles.buttonContainer}>
