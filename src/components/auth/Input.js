@@ -8,7 +8,7 @@ export default function Input({
   value,
   onChangeText,
   keyboardType,
-  handleBlur,
+  onBlur,
 }) {
   return (
     <TextInput
@@ -16,7 +16,7 @@ export default function Input({
       keyboardType={keyboardType}
       placeholder={placeholder}
       secureTextEntry={secureTextEntry}
-      onBlur={handleBlur}
+      onBlur={onBlur}
       value={value}
       placeholderTextColor={colors.tertiary}
       style={styles.container}
