@@ -1,20 +1,36 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import colors from "../styles/colors";
 import Input from "../components/auth/Input";
 import Button from "../components/Button";
 import { auth } from "../services/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { showMessage } from "react-native-flash-message";
 import { StatusBar } from "expo-status-bar";
 import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 import { Formik } from "formik";
 import * as yup from "yup";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn({ navigation }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        console.log("Kullanıcı oturumu açık:", user);
+      } else {
+        console.log("Kullanıcı oturumu kapalı");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const signIn = async (email, password) => {
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -27,6 +43,7 @@ export default function SignIn({ navigation }) {
         type: "success",
       });
       setUser(userCredential.user);
+      await saveUserToStorage(userCredential.user);
     } catch (error) {
       showMessage({
         message: "Hata",
@@ -34,6 +51,20 @@ export default function SignIn({ navigation }) {
         type: "danger",
       });
       console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveUserToStorage = async (user) => {
+    try {
+      const userData = JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+      });
+      await AsyncStorage.setItem("@user", userData);
+    } catch (error) {
+      console.error("Kullanıcı verisi kaydedilemedi:", error);
     }
   };
 
@@ -87,7 +118,11 @@ export default function SignIn({ navigation }) {
               />
             </View>
             <View style={styles.buttonContainer}>
-              <Button text={"Giriş Yap"} onPress={handleSubmit} />
+              <Button
+                text={loading ? "Yükleniyor..." : "Giriş Yap"}
+                onPress={handleSubmit}
+                disabled={loading}
+              />
               <Button
                 theme="secondary"
                 text={"Kayıt Ol"}
