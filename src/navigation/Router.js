@@ -53,15 +53,15 @@ export default function Router() {
             options={{
               headerTitle: "Odalar",
               headerStyle: {
-                backgroundColor: colors.primary,
+                backgroundColor: colors.background,
               },
-              headerTintColor: colors.background,
+              headerTintColor: colors.secondary,
               headerTitleAlign: "center",
               headerRight: () => (
                 <Entypo
                   name="log-out"
                   size={24}
-                  color="black"
+                  color={colors.secondary}
                   onPress={handleSignOut}
                 />
               ),
