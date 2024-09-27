@@ -10,6 +10,7 @@ import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 import { showMessage } from "react-native-flash-message";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { getDatabase, ref, set } from "firebase/database";
 
 export default function SignUp({ navigation }) {
   const signUp = async (email, password) => {
@@ -25,6 +26,7 @@ export default function SignUp({ navigation }) {
         type: "success",
       });
       console.log(userCredential.user);
+      writeUserData(userCredential.user);
     } catch (error) {
       console.log(error.code);
       showMessage({
@@ -34,6 +36,21 @@ export default function SignUp({ navigation }) {
       });
     }
   };
+
+  function writeUserData(user) {
+    const db = getDatabase();
+    set(ref(db, "users/" + user.uid), {
+      username: user.email.split("@")[0],
+      email: user.email,
+      createdAt: new Date().toISOString(),
+    })
+      .then(() => {
+        console.log("User data written successfully!");
+      })
+      .catch((error) => {
+        console.error("Error writing user data: ", error);
+      });
+  }
 
   const validationSchema = yup.object().shape({
     email: yup
