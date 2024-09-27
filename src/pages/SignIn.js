@@ -27,7 +27,6 @@ export default function SignIn({ navigation }) {
         type: "success",
       });
       setUser(userCredential.user);
-      console.log(userCredential.user); // Hatanın düzeltilmesi
     } catch (error) {
       showMessage({
         message: "Hata",
