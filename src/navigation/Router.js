@@ -14,6 +14,7 @@ import { auth } from "../services/firebaseConfig";
 import colors from "../styles/colors";
 import Entypo from "@expo/vector-icons/Entypo";
 import { showMessage } from "react-native-flash-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,9 @@ export default function Router() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    checkUserSession().catch((error) =>
+      console.error("Kullanıcı oturumu kontrol edilemedi:", error)
+    );
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
@@ -37,6 +41,27 @@ export default function Router() {
       type: "success",
     });
     auth.signOut();
+    removeUserFromStorage();
+  };
+
+  const removeUserFromStorage = async () => {
+    try {
+      await AsyncStorage.removeItem("@user");
+      setUser(null);
+    } catch (error) {
+      console.error("Kullanıcı oturumu kaldırılamadı:", error);
+    }
+  };
+
+  const checkUserSession = async () => {
+    try {
+      const localStoragedUser = await AsyncStorage.getItem("@user");
+      if (localStoragedUser !== null) {
+        setUser(JSON.parse(localStoragedUser));
+      }
+    } catch (error) {
+      console.error("Kullanıcı oturumu kontrol edilemedi:", error);
+    }
   };
 
   if (loading) {
