@@ -10,7 +10,6 @@ import { StatusBar } from "expo-status-bar";
 import { getFirebaseErrorMessage } from "../utils/firebaseAuthError";
 import { Formik } from "formik";
 import * as yup from "yup";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn({ navigation }) {
   const [user, setUser] = useState(null);
@@ -43,7 +42,6 @@ export default function SignIn({ navigation }) {
         type: "success",
       });
       setUser(userCredential.user);
-      await saveUserToStorage(userCredential.user);
     } catch (error) {
       showMessage({
         message: "Hata",
@@ -53,18 +51,6 @@ export default function SignIn({ navigation }) {
       console.log(error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const saveUserToStorage = async (user) => {
-    try {
-      const userData = JSON.stringify({
-        uid: user.uid,
-        email: user.email,
-      });
-      await AsyncStorage.setItem("@user", userData);
-    } catch (error) {
-      console.error("Kullanıcı verisi kaydedilemedi:", error);
     }
   };
 
