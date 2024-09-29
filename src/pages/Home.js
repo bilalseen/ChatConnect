@@ -5,10 +5,11 @@ import FloatingActionButton from "../components/FloatingActionButton";
 import RoomCard from "../components/RoomCard";
 import { getDatabase, onValue, ref } from "firebase/database";
 import parseData from "../utils/parseData";
+import RoomCreationModal from "../components/RoomCreationModal";
 
 export default function Home() {
   const [roomData, setRoomData] = useState([]);
-  const [user, setUser] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const getRooms = () => {
@@ -21,9 +22,11 @@ export default function Home() {
           const data = snapshot.val();
           if (data) {
             const formattedData = parseData(data);
+            console.log(formattedData);
             setRoomData(formattedData);
           } else {
             console.error("Veri bulunamadı");
+            setRoomData(null);
           }
         },
         (error) => {
@@ -34,22 +37,36 @@ export default function Home() {
       return unsubscribe;
     };
 
-    getRooms();
+    const unsubscribe = getRooms();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
-      <FloatingActionButton onPress={() => null} />
-      <FlatList
-        numColumns={2}
-        data={roomData}
-        renderItem={(item) => <RoomCard roomData={item.item} />}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        ListFooterComponent={<View style={{ height: 50 }} />}
-        ListHeaderComponent={<View style={{ height: 50 }} />}
+      <FloatingActionButton
+        onPress={() => setIsModalVisible(!isModalVisible)}
       />
+      <RoomCreationModal
+        modalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+      {roomData ? (
+        <FlatList
+          numColumns={2}
+          data={roomData}
+          renderItem={(item) => <RoomCard roomData={item.item} />}
+          keyExtractor={(item) => item.roomId}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={<View style={{ height: 50 }} />}
+          ListHeaderComponent={<View style={{ height: 50 }} />}
+        />
+      ) : (
+        <Text>Oda bulunamadı</Text>
+      )}
     </SafeAreaView>
   );
 }
