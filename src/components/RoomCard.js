@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../styles/colors";
 
-const RoomCard = ({ roomName, roomID, onPress }) => {
+const RoomCard = ({ roomData, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.text}>{roomName}</Text>
+      <Text style={styles.text}>{roomData.roomName}</Text>
     </TouchableOpacity>
   );
 };
