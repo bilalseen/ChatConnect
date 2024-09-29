@@ -7,12 +7,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "../pages/Home";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
+import Room from "../pages/Room";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebaseConfig";
 
 import colors from "../styles/colors";
 import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
+
 import { showMessage } from "react-native-flash-message";
 
 const Stack = createNativeStackNavigator();
@@ -63,6 +66,26 @@ export default function Router() {
                   size={24}
                   color={colors.secondary}
                   onPress={handleSignOut}
+                />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="RoomScreen"
+            component={Room}
+            options={{
+              headerTitle: "Room",
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              headerTintColor: colors.secondary,
+              headerTitleAlign: "center",
+              headerRight: () => (
+                <Feather
+                  name="info"
+                  size={24}
+                  color={colors.secondary}
+                  onPress={() => null}
                 />
               ),
             }}
