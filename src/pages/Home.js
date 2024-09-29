@@ -1,13 +1,15 @@
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import FloatingActionButton from "../components/FloatingActionButton";
+
 import RoomCard from "../components/RoomCard";
+import RoomCreationModal from "../components/RoomCreationModal";
+import FloatingActionButton from "../components/FloatingActionButton";
+
 import { getDatabase, onValue, ref } from "firebase/database";
 import parseData from "../utils/parseData";
-import RoomCreationModal from "../components/RoomCreationModal";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [roomData, setRoomData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -22,7 +24,6 @@ export default function Home() {
           const data = snapshot.val();
           if (data) {
             const formattedData = parseData(data);
-            console.log(formattedData);
             setRoomData(formattedData);
           } else {
             console.error("Veri bulunamadı");
@@ -44,6 +45,10 @@ export default function Home() {
     };
   }, []);
 
+  const handleNavigate = (roomId) => {
+    navigation.navigate("RoomScreen", { roomId });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
@@ -58,7 +63,12 @@ export default function Home() {
         <FlatList
           numColumns={2}
           data={roomData}
-          renderItem={(item) => <RoomCard roomData={item.item} />}
+          renderItem={(item) => (
+            <RoomCard
+              roomData={item.item}
+              onPress={() => handleNavigate(item.item.roomId)}
+            />
+          )}
           keyExtractor={(item) => item.roomId}
           showsVerticalScrollIndicator={false}
           ListFooterComponent={<View style={{ height: 50 }} />}
