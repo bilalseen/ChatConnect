@@ -56,7 +56,7 @@ export default function Router() {
             options={{
               headerTitle: "Odalar",
               headerStyle: {
-                backgroundColor: colors.background,
+                backgroundColor: colors.tertiary,
               },
               headerTintColor: colors.secondary,
               headerTitleAlign: "center",
