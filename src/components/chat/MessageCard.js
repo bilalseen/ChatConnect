@@ -44,9 +44,7 @@ const MessageCard = ({ item }) => {
 };
 
 const styles = StyleSheet.create({
-  messageWrapper: {
-    marginVertical: 5,
-  },
+  messageWrapper: {},
   sentMessage: {
     alignItems: "flex-end",
   },
@@ -55,7 +53,6 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     flexDirection: "row",
-    padding: 10,
     borderRadius: 10,
     gap: 10,
   },
