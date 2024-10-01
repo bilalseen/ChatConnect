@@ -17,10 +17,11 @@ import Entypo from "@expo/vector-icons/Entypo";
 import Feather from "@expo/vector-icons/Feather";
 
 import { showMessage } from "react-native-flash-message";
+import RoomDetails from "../pages/RoomDetails";
 
 const Stack = createNativeStackNavigator();
 
-export default function Router() {
+export default function Router({ navigation }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -73,7 +74,7 @@ export default function Router() {
           <Stack.Screen
             name="RoomScreen"
             component={Room}
-            options={{
+            options={({ navigation }) => ({
               headerTitle: "Room",
               headerStyle: {
                 backgroundColor: colors.background,
@@ -85,7 +86,27 @@ export default function Router() {
                   name="info"
                   size={24}
                   color={colors.secondary}
-                  onPress={() => null}
+                  onPress={() => navigation.navigate("RoomDetailsScreen")}
+                />
+              ),
+            })}
+          />
+          <Stack.Screen
+            name="RoomDetailsScreen"
+            component={RoomDetails}
+            options={{
+              headerTitle: "RoomDetails",
+              headerStyle: {
+                backgroundColor: colors.background,
+              },
+              headerTintColor: colors.secondary,
+              headerTitleAlign: "center",
+              headerRight: () => (
+                <Entypo
+                  name="log-out"
+                  size={24}
+                  color={colors.secondary}
+                  onPress={() => navigation.navigate("RoomDetailsScreen")}
                 />
               ),
             }}
