@@ -120,6 +120,7 @@ export default function Room({ route }) {
               </Text>
             </View>
           }
+          ListFooterComponent={<View style={{ height: 20 }} />}
           ListEmptyComponent={
             <View style={{ padding: 20, alignItems: "center" }}>
               <Text style={{ color: colors.secondary }}>
