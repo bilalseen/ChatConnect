@@ -1,7 +1,7 @@
 const colors = {
-  primary: "#FF6F00",
-  secondary: "#FFB97D",
-  tertiary: "#FFFFFF",
+  primary: "#6A5BC2",
+  secondary: "#523CBE",
+  tertiary: "#E5E5E5",
   danger: "#FF0000",
 };
 
