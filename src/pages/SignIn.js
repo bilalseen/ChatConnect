@@ -105,9 +105,9 @@ export default function SignIn({ navigation }) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                text={loading ? "Yükleniyor..." : "Giriş Yap"}
+                text={"Giriş Yap"}
                 onPress={handleSubmit}
-                disabled={loading}
+                loading={loading}
               />
               <Button
                 theme="secondary"

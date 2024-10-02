@@ -13,7 +13,10 @@ import * as yup from "yup";
 import { getDatabase, ref, set } from "firebase/database";
 
 export default function SignUp({ navigation }) {
+  const [loading, setLoading] = useState(false);
+
   const signUp = async (email, password) => {
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -34,6 +37,8 @@ export default function SignUp({ navigation }) {
         description: getFirebaseErrorMessage(error),
         type: "danger",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,7 +121,11 @@ export default function SignUp({ navigation }) {
               />
             </View>
             <View style={styles.buttonContainer}>
-              <Button text={"Kayıt Ol"} onPress={handleSubmit} />
+              <Button
+                text={"Kayıt Ol"}
+                onPress={handleSubmit}
+                loading={loading}
+              />
               <Button
                 theme="secondary"
                 text={"Geri"}
