@@ -45,8 +45,11 @@ export default function Home({ navigation }) {
     };
   }, []);
 
-  const handleNavigate = (roomId) => {
-    navigation.navigate("RoomScreen", { roomId });
+  const handleNavigate = (item) => {
+    navigation.navigate("RoomScreen", {
+      roomId: item.roomId,
+      roomName: item.roomName,
+    });
   };
 
   return (
@@ -66,7 +69,7 @@ export default function Home({ navigation }) {
           renderItem={(item) => (
             <RoomCard
               roomData={item.item}
-              onPress={() => handleNavigate(item.item.roomId)}
+              onPress={() => handleNavigate(item.item)}
             />
           )}
           keyExtractor={(item) => item.roomId}
