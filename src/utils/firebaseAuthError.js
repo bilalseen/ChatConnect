@@ -1,75 +1,75 @@
 function getFirebaseErrorMessage(error) {
   switch (error) {
     case "auth/claims-too-large":
-      return "Hesap bilgilerinizde yaptığınız değişiklikler çok büyük. Lütfen daha az bilgi girerek tekrar deneyin.";
+      return "The changes you made to your account information are too large. Please try again with less information.";
     case "auth/email-already-exists":
-      return "Bu e-posta adresi zaten kullanımda. Farklı bir e-posta adresi deneyin veya hesabınıza giriş yapın.";
+      return "This email address is already in use. Try a different email address or log in to your account.";
     case "auth/id-token-expired":
-      return "Oturum süreniz doldu. Lütfen tekrar giriş yapın.";
+      return "Your session has expired. Please log in again.";
     case "auth/id-token-revoked":
-      return "Güvenlik nedeniyle oturumunuz kapatıldı. Lütfen yeniden giriş yapın.";
+      return "Your session has been closed for security reasons. Please log in again.";
     case "auth/insufficient-permission":
-      return "Bu işlem için gerekli yetkilere sahip değilsiniz. Lütfen yöneticinizle iletişime geçin.";
+      return "You do not have the necessary permissions for this action. Please contact your administrator.";
     case "auth/internal-error":
-      return "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin veya daha sonra geri dönün.";
+      return "An unexpected error occurred. Please try again or come back later.";
     case "auth/invalid-argument":
-      return "Geçersiz bir bilgi girdiniz. Lütfen tekrar kontrol edin.";
+      return "You entered invalid information. Please check again.";
     case "auth/invalid-claims":
-      return "Hesap bilgileri doğru şekilde güncellenemedi. Lütfen tekrar deneyin.";
+      return "Account information could not be updated correctly. Please try again.";
     case "auth/invalid-continue-uri":
-      return "Devam edilecek bağlantı geçersiz. Lütfen destek ekibine başvurun.";
+      return "The continue URL is invalid. Please contact the support team.";
     case "auth/invalid-creation-time":
-      return "Hesap oluşturulma tarihi geçersiz görünüyor. Lütfen tekrar deneyin.";
+      return "The account creation date appears to be invalid. Please try again.";
     case "auth/invalid-credential":
-      return "Kimlik bilgileri doğrulanamadı. Lütfen tekrar deneyin.";
+      return "Credentials could not be verified. Please try again.";
     case "auth/invalid-disabled-field":
-      return "Geçersiz bir bilgi girdiniz. Lütfen alanları kontrol edip tekrar deneyin.";
+      return "You entered invalid information. Please check the fields and try again.";
     case "auth/invalid-display-name":
-      return "Girdiğiniz kullanıcı adı geçersiz. Boş olmayan bir ad kullanmayı deneyin.";
+      return "The username you entered is invalid. Try using a non-empty name.";
     case "auth/invalid-dynamic-link-domain":
-      return "Geçersiz bir bağlantı kullandınız. Lütfen doğru bağlantıyı kontrol edin.";
+      return "You used an invalid link. Please check the correct link.";
     case "auth/invalid-email":
-      return "Geçersiz bir e-posta adresi girdiniz. Lütfen e-posta adresinizi kontrol edin.";
+      return "You entered an invalid email address. Please check your email address.";
     case "auth/invalid-email-verified":
-      return "E-posta doğrulama durumu geçersiz. Lütfen tekrar deneyin.";
+      return "The email verification status is invalid. Please try again.";
     case "auth/invalid-hash-algorithm":
-      return "Sistemsel bir hata oluştu. Lütfen destek ekibi ile iletişime geçin.";
+      return "A system error occurred. Please contact the support team.";
     case "auth/invalid-id-token":
-      return "Geçersiz kimlik doğrulama bilgileri. Lütfen tekrar giriş yapın.";
+      return "Invalid authentication credentials. Please log in again.";
     case "auth/invalid-password":
-      return "Şifreniz geçersiz. Şifreniz en az 6 karakter olmalıdır.";
+      return "Your password is invalid. Your password must be at least 6 characters.";
     case "auth/invalid-phone-number":
-      return "Geçersiz bir telefon numarası girdiniz. Lütfen numaranızı kontrol edin ve tekrar deneyin.";
+      return "You entered an invalid phone number. Please check your number and try again.";
     case "auth/invalid-photo-url":
-      return "Fotoğraf URL'si geçersiz. Lütfen geçerli bir URL girin.";
+      return "The photo URL is invalid. Please enter a valid URL.";
     case "auth/invalid-provider-data":
-      return "Sağlayıcı bilgileri geçersiz. Lütfen tekrar deneyin.";
+      return "Provider information is invalid. Please try again.";
     case "auth/maximum-user-count-exceeded":
-      return "Maksimum kullanıcı limitine ulaşıldı. Lütfen daha sonra tekrar deneyin.";
+      return "The maximum user limit has been reached. Please try again later.";
     case "auth/missing-android-pkg-name":
-      return "Eksik Android paket adı. Lütfen destek ekibi ile iletişime geçin.";
+      return "Missing Android package name. Please contact the support team.";
     case "auth/missing-continue-uri":
-      return "Devam etmek için gereken bağlantı eksik. Lütfen doğru bağlantıyı kullandığınızdan emin olun.";
+      return "The continue URL is missing. Please make sure you are using the correct link.";
     case "auth/missing-uid":
-      return "Kullanıcı kimliği eksik. Lütfen tekrar deneyin.";
+      return "User ID is missing. Please try again.";
     case "auth/operation-not-allowed":
-      return "Bu oturum açma yöntemi şu anda devre dışı. Lütfen farklı bir yöntem deneyin.";
+      return "This sign-in method is currently disabled. Please try a different method.";
     case "auth/phone-number-already-exists":
-      return "Bu telefon numarası zaten başka bir hesapla ilişkili. Lütfen farklı bir numara deneyin.";
+      return "This phone number is already associated with another account. Please try a different number.";
     case "auth/project-not-found":
-      return "Proje bulunamadı. Lütfen destek ekibiyle iletişime geçin.";
+      return "Project not found. Please contact the support team.";
     case "auth/session-cookie-expired":
-      return "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.";
+      return "Your session has expired. Please log in again.";
     case "auth/too-many-requests":
-      return "Çok fazla istek gönderdiniz. Lütfen bir süre sonra tekrar deneyin.";
+      return "You have sent too many requests. Please try again later.";
     case "auth/uid-already-exists":
-      return "Bu kullanıcı kimliği zaten kullanımda. Farklı bir kullanıcı kimliği deneyin.";
+      return "This user ID is already in use. Try a different user ID.";
     case "auth/user-not-found":
-      return "Bu bilgilere sahip bir kullanıcı bulunamadı. Lütfen kayıt olduğunuzdan emin olun.";
+      return "No user found with this information. Please make sure you are registered.";
     case "auth/email-already-in-use":
-      return "Bu e-posta adresi zaten kullanımda. Farklı bir e-posta adresi deneyin.";
+      return "This email address is already in use. Try a different email address.";
     default:
-      return "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+      return "An error occurred. Please try again later.";
   }
 }
 
