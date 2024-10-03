@@ -35,7 +35,7 @@ const CustomModal = ({ modalVisible, setIsModalVisible }) => {
       })
       .catch((error) => {
         showMessage({
-          message: "Oda oluşturulurken bir hata oluştu",
+          message: "An error occurred while creating the room",
           type: "warning",
         });
         console.error("Oda oluşturma hatası:", error);
