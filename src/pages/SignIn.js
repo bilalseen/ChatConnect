@@ -37,14 +37,14 @@ export default function SignIn({ navigation }) {
         password
       );
       showMessage({
-        message: "Başarılı",
-        description: "Giriş Başarılı",
+        message: "Success",
+        description: "Sign in successful",
         type: "success",
       });
       setUser(userCredential.user);
     } catch (error) {
       showMessage({
-        message: "Hata",
+        message: "Error",
         description: getFirebaseErrorMessage(error),
         type: "danger",
       });
@@ -57,12 +57,12 @@ export default function SignIn({ navigation }) {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
-      .email("Geçersiz e-posta!!!")
-      .required("E-posta zorunlu!!!"),
+      .email("Invalid email address!!!")
+      .required("Email is required!!!"),
     password: yup
       .string()
-      .required("Şifre zorunlu!!!")
-      .min(6, "Şifre en az 6 karakter olmalıdır!!!"),
+      .required("Password is required!!!")
+      .min(6, "Password must be at least 6 characters long!!!"),
   });
 
   return (
@@ -87,7 +87,7 @@ export default function SignIn({ navigation }) {
           <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
               <Input
-                placeholder="e-postanızı giriniz.."
+                placeholder="Enter your email.."
                 keyboardType="email-address"
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
@@ -95,7 +95,7 @@ export default function SignIn({ navigation }) {
                 error={touched.email && errors.email}
               />
               <Input
-                placeholder="şifrenizi giriniz.."
+                placeholder="Enter your password.."
                 secureTextEntry={true}
                 onChangeText={handleChange("password")}
                 onBlur={handleBlur("password")}
@@ -105,13 +105,13 @@ export default function SignIn({ navigation }) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                text={"Giriş Yap"}
+                text={"Sign In"}
                 onPress={handleSubmit}
                 loading={loading}
               />
               <Button
                 theme="secondary"
-                text={"Kayıt Ol"}
+                text={"Sign Up"}
                 onPress={() => navigation.navigate("SignUpScreen")}
               />
             </View>
