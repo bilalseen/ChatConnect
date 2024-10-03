@@ -50,7 +50,7 @@ The project is developed using the following technologies:
       <th style="text-align: center;">Home</th>
       <th style="text-align: center;">Room Chat Page</th>
       <th style="text-align: center;">SignIn Page</th>
-      <th style="text-align: center;">SignIn Warning Page</th>
+      <th style="text-align: center;">SignIn Warning</th>
       <th style="text-align: center;">SignUp Page</th>
     </tr>
     <tr>
