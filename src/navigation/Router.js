@@ -55,7 +55,7 @@ export default function Router({ navigation }) {
             name="HomeScreen"
             component={Home}
             options={{
-              headerTitle: "Odalar",
+              headerTitle: "Rooms",
               headerStyle: {
                 backgroundColor: colors.tertiary,
               },
@@ -74,8 +74,8 @@ export default function Router({ navigation }) {
           <Stack.Screen
             name="RoomScreen"
             component={Room}
-            options={({ navigation }) => ({
-              headerTitle: "Room",
+            options={({ navigation, route }) => ({
+              headerTitle: route.params.roomName,
               headerStyle: {
                 backgroundColor: colors.background,
               },
