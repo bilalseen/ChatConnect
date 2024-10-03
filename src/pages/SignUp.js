@@ -24,8 +24,8 @@ export default function SignUp({ navigation }) {
         password
       );
       showMessage({
-        message: "Başarılı",
-        description: "Kayıt Başarılı",
+        message: "Success",
+        description: "Registration Successful",
         type: "success",
       });
       console.log(userCredential.user);
@@ -60,16 +60,16 @@ export default function SignUp({ navigation }) {
   const validationSchema = yup.object().shape({
     email: yup
       .string()
-      .email("Geçerli bir e-posta adresi giriniz.")
-      .required("E-posta adresi gerekli."),
+      .email("Please enter a valid email address.")
+      .required("Email address is required."),
     password: yup
       .string()
-      .min(6, "Şifre en az 6 karakter olmalıdır.")
-      .required("Şifre gerekli."),
+      .min(6, "Password must be at least 6 characters long.")
+      .required("Password is required."),
     passwordRepeat: yup
       .string()
-      .oneOf([yup.ref("password"), null], "Şifreler uyuşmuyor")
-      .required("Şifre tekrarı gerekli."),
+      .oneOf([yup.ref("password"), null], "Passwords do not match.")
+      .required("Password confirmation is required."),
   });
 
   return (
@@ -96,7 +96,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.formContainer}>
             <View style={styles.inputContainer}>
               <Input
-                placeholder="e-postanızı giriniz.."
+                placeholder="Enter your email.."
                 keyboardType="email-address"
                 onChangeText={handleChange("email")}
                 value={values.email}
@@ -104,7 +104,7 @@ export default function SignUp({ navigation }) {
                 error={touched.email && errors.email}
               />
               <Input
-                placeholder="şifrenizi giriniz.."
+                placeholder="Enter your password.."
                 secureTextEntry={true}
                 onChangeText={handleChange("password")}
                 value={values.password}
@@ -112,7 +112,7 @@ export default function SignUp({ navigation }) {
                 error={touched.password && errors.password}
               />
               <Input
-                placeholder="şifrenizi tekrar giriniz.."
+                placeholder="Re-enter your password.."
                 secureTextEntry={true}
                 onChangeText={handleChange("passwordRepeat")}
                 value={values.passwordRepeat}
@@ -122,13 +122,13 @@ export default function SignUp({ navigation }) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                text={"Kayıt Ol"}
+                text={"Sign Up"}
                 onPress={handleSubmit}
                 loading={loading}
               />
               <Button
                 theme="secondary"
-                text={"Geri"}
+                text={"Back"}
                 onPress={() => navigation.navigate("SignInScreen")}
               />
             </View>
