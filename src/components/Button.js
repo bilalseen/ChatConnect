@@ -10,7 +10,7 @@ export default function Button({ text, onPress, theme = "primary", loading }) {
       disabled={loading}
     >
       <Text style={styles[theme].buttonText}>
-        {loading ? "Yükleniyor..." : text}
+        {loading ? "Loading..." : text}
       </Text>
     </TouchableOpacity>
   );
