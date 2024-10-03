@@ -37,7 +37,7 @@ export default function MessageInput({ roomId }) {
       })
       .catch((error) => {
         showMessage({
-          message: "Mesaj gönderilirken bir hata oluştu",
+          message: "An error occurred while sending the message",
           type: "warning",
         });
         console.error("Mesaj gönderme hatası:", error);
@@ -47,7 +47,7 @@ export default function MessageInput({ roomId }) {
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        placeholder="Bir şeyler yaz..."
+        placeholder="Write a message..."
         placeholderTextColor={colors.secondary}
         onChangeText={(text) => setMessage(text)}
         value={message}
