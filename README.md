@@ -48,10 +48,10 @@ The project is developed using the following technologies:
   <table style="margin: 0 auto;">
     <tr>
       <th style="text-align: center;">Home</th>
-      <th style="text-align: center;">Detail Page</th>
-      <th style="text-align: center;">Detail Page<br>(Unliked)</th>
-      <th style="text-align: center;">Detail Page<br>(Liked)</th>
-      <th style="text-align: center;">Favorite Page</th>
+      <th style="text-align: center;">Room Chat Page</th>
+      <th style="text-align: center;">SignIn Page</th>
+      <th style="text-align: center;">SignIn Warning Page</th>
+      <th style="text-align: center;">SignUp Page</th>
     </tr>
     <tr>
       <td style="text-align: center;">
@@ -61,10 +61,10 @@ The project is developed using the following technologies:
         <img src="./src/assets/images/screenshots/room-chat.jpg" alt="Room Chat Page" height="300" height="600">
       </td>
       <td style="text-align: center;">
-        <img src="./src/assets/images/screenshots/signin.jpg" alt="SignIn Unliked" height="300" height="600">
+        <img src="./src/assets/images/screenshots/signin.jpg" alt="SignIn Page" height="300" height="600">
       </td>
       <td style="text-align: center;">
-        <img src="./src/assets/images/screenshots/signin-warning.jpg" alt="SignIn Warning Page Liked" height="300" height="600">
+        <img src="./src/assets/images/screenshots/signin-warning.jpg" alt="SignIn Warning Page" height="300" height="600">
       </td>
       <td style="text-align: center;">
         <img src="./src/assets/images/screenshots/signup.jpg" alt="SignUp Page" height="300" height="600">
